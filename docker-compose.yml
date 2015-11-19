@@ -1,0 +1,22 @@
+php:
+  build: .
+  links:
+    - db
+  volumes:
+    - .:/var/www
+nginx:
+  image: nginx:1.9.4
+  links:
+    - php
+  volumes_from:
+    - php
+  volumes:
+    - ./docker/vhost.conf:/etc/nginx/conf.d/default.conf
+  ports:
+    - "80:80"
+db:
+  image: mongo:latest
+  volumes:
+    - /mnt/sda1/var/lib/mongo-data:/data/db
+  ports:
+    - "27017:27017"

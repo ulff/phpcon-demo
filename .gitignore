@@ -1,0 +1,16 @@
+.idea/
+
+demo/app/bootstrap.php.cache
+demo/app/config/parameters.yml
+demo/app/phpunit.xml
+demo/app/cache
+demo/app/logs
+demo/bin/
+!demo/bin/.gitkeep
+demo/vendor/
+demo/web/bundles/
+
+logs/nginx/*
+!logs/nginx/.gitkeep
+logs/symfony/*
+!logs/symfony/.gitkeep
