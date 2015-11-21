@@ -1,9 +1,9 @@
 <?php
 
-namespace spec\Domain\Model;
+namespace spec\Domain\Entity;
 
-use Domain\Model\Comment\CommentId;
-use Domain\Model\Post\PostId;
+use Domain\Entity\Comment\CommentId;
+use Domain\Entity\Post\PostId;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -16,7 +16,7 @@ class CommentSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Domain\Model\Comment');
+        $this->shouldHaveType('Domain\Entity\Comment');
     }
 
     function it_has_reference_to_post(PostId $postId)

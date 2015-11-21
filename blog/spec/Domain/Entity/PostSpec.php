@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\Domain\Model;
+namespace spec\Domain\Entity;
 
-use Domain\Model\Post\PostId;
+use Domain\Entity\Post\PostId;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -15,7 +15,7 @@ class PostSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Domain\Model\Post');
+        $this->shouldHaveType('Domain\Entity\Post');
     }
 
     function it_has_title()

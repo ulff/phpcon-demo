@@ -1,11 +1,16 @@
 <?php
 
-namespace Domain\Model;
+namespace Domain\Entity;
 
-use Domain\Model\Post\PostId;
+use Domain\Entity\Post\PostId;
+use Domain\EventModel\DomainEvent;
+use Domain\EventModel\EventBased;
+use Domain\EventModel\EventSourced;
 
-class Post
+class Post implements EventBased
 {
+    use EventSourced;
+
     /**
      * @var PostId
      */
@@ -80,11 +85,19 @@ class Post
     }
 
     /**
+     * @return PostId
+     */
+    public function getAggregateId()
+    {
+        return $this->postId;
+    }
+
+    /**
      * @param string $title
      * @param string $content
      * @return Post
      */
-    public static function publish($title, $content)
+    public static function create($title, $content)
     {
         $post = new self(PostId::generate());
         $post->setTitle($title);

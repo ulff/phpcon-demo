@@ -1,8 +1,10 @@
 <?php
 
-namespace Domain\Model\Post;
+namespace Domain\Entity\Post;
 
-class PostId 
+use Domain\EventModel\AggregateId;
+
+class PostId implements AggregateId
 {
     private $postId;
 

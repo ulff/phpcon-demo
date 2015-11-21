@@ -1,8 +1,10 @@
 <?php
 
-namespace Domain\Model\Comment;
+namespace Domain\Entity\Comment;
 
-class CommentId 
+use Domain\EventModel\AggregateId;
+
+class CommentId implements AggregateId
 {
     private $commentId;
 

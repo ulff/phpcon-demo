@@ -1,12 +1,17 @@
 <?php
 
-namespace Domain\Model;
+namespace Domain\Entity;
 
-use Domain\Model\Comment\CommentId;
-use Domain\Model\Post\PostId;
+use Domain\Entity\Comment\CommentId;
+use Domain\Entity\Post\PostId;
+use Domain\EventModel\DomainEvent;
+use Domain\EventModel\EventBased;
+use Domain\EventModel\EventSourced;
 
-class Comment
+class Comment implements EventBased
 {
+    use EventSourced;
+
     /**
      * @var CommentId
      */
@@ -99,12 +104,20 @@ class Comment
     }
 
     /**
+     * @return CommentId
+     */
+    public function getAggregateId()
+    {
+        return $this->commentId;
+    }
+
+    /**
      * @param PostId $postId
      * @param string $author
      * @param string $content
      * @return Comment
      */
-    public static function add(PostId $postId, $author, $content)
+    public static function create(PostId $postId, $author, $content)
     {
         $comment = new self(CommentId::generate(), $postId);
         $comment->setAuthor($author);
