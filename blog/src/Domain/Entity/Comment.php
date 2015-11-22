@@ -4,7 +4,9 @@ namespace Domain\Entity;
 
 use Domain\Entity\Comment\CommentId;
 use Domain\Entity\Post\PostId;
+use Domain\EventModel\AggregateHistory\CommentAggregateHistory;
 use Domain\EventModel\DomainEvent;
+use Domain\EventModel\Event\CommentWasAdded;
 use Domain\EventModel\EventBased;
 use Domain\EventModel\EventSourced;
 
@@ -111,6 +113,13 @@ class Comment implements EventBased
         return $this->commentId;
     }
 
+    private function applyCommentWasAdded(CommentWasAdded $event)
+    {
+        $this->setAuthor($event->getAuthor());
+        $this->setContent($event->getContent());
+        $this->setCreatingDate($event->getCreatingDate());
+    }
+
     /**
      * @param PostId $postId
      * @param string $author
@@ -119,10 +128,30 @@ class Comment implements EventBased
      */
     public static function create(PostId $postId, $author, $content)
     {
-        $comment = new self(CommentId::generate(), $postId);
+        $comment = new self($commentId = CommentId::generate(), $postId);
         $comment->setAuthor($author);
         $comment->setContent($content);
-        $comment->setCreatingDate(new \DateTime());
+        $comment->setCreatingDate($creatingDate = new \DateTime());
+        $comment->recordThat(new CommentWasAdded($commentId, $postId, $author, $content, $creatingDate));
+
+        return $comment;
+    }
+
+    /**
+     * @param CommentAggregateHistory $aggregateHistory
+     * @return Post
+     */
+    public static function reconstituteFrom(CommentAggregateHistory $aggregateHistory, PostId $postId)
+    {
+        $commentId = $aggregateHistory->getAggregateId();
+        $comment = new self($commentId, $postId);
+        $events = $aggregateHistory->getEvents();
+
+        foreach ($events as $event) {
+            $applyMethod = explode('\\', get_class($event));
+            $applyMethod = 'apply' . end($applyMethod);
+            $comment->$applyMethod($event);
+        }
 
         return $comment;
     }

@@ -3,7 +3,8 @@
 namespace Domain\Entity;
 
 use Domain\Entity\Post\PostId;
-use Domain\EventModel\DomainEvent;
+use Domain\EventModel\AggregateHistory\PostAggregateHistory;
+use Domain\EventModel\Event\PostWasPublished;
 use Domain\EventModel\EventBased;
 use Domain\EventModel\EventSourced;
 
@@ -34,6 +35,11 @@ class Post implements EventBased
     public function __construct(PostId $postId)
     {
         $this->postId = $postId;
+    }
+
+    public function getPostId()
+    {
+        return $this->postId;
     }
 
     /**
@@ -92,6 +98,13 @@ class Post implements EventBased
         return $this->postId;
     }
 
+    private function applyPostWasPublished(PostWasPublished $event)
+    {
+        $this->setTitle($event->getTitle());
+        $this->setContent($event->getContent());
+        $this->setPublishingDate($event->getPublishingDate());
+    }
+
     /**
      * @param string $title
      * @param string $content
@@ -99,10 +112,30 @@ class Post implements EventBased
      */
     public static function create($title, $content)
     {
-        $post = new self(PostId::generate());
+        $post = new self($postId = PostId::generate());
         $post->setTitle($title);
         $post->setContent($content);
-        $post->setPublishingDate(new \DateTime());
+        $post->setPublishingDate($publishingDate = new \DateTime());
+        $post->recordThat(new PostWasPublished($postId, $title, $content, $publishingDate));
+
+        return $post;
+    }
+
+    /**
+     * @param PostAggregateHistory $aggregateHistory
+     * @return Post
+     */
+    public static function reconstituteFrom(PostAggregateHistory $aggregateHistory)
+    {
+        $postId = $aggregateHistory->getAggregateId();
+        $post = new self($postId);
+        $events = $aggregateHistory->getEvents();
+
+        foreach ($events as $event) {
+            $applyMethod = explode('\\', get_class($event));
+            $applyMethod = 'apply' . end($applyMethod);
+            $post->$applyMethod($event);
+        }
 
         return $post;
     }

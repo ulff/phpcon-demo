@@ -44,4 +44,9 @@ trait EventSourced
     {
         throw new \Exception('Method create was not implemented in class: '.self::class);
     }
+
+    public static function reconstituteFrom()
+    {
+        throw new \Exception('Method reconstituteFrom was not implemented in class: '.self::class);
+    }
 }
