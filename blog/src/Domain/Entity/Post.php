@@ -5,6 +5,7 @@ namespace Domain\Entity;
 use Domain\Entity\Post\PostId;
 use Domain\EventModel\AggregateHistory\PostAggregateHistory;
 use Domain\EventModel\Event\PostWasPublished;
+use Domain\EventModel\Event\PostWasUpdated;
 use Domain\EventModel\EventBased;
 use Domain\EventModel\EventSourced;
 
@@ -98,11 +99,27 @@ class Post implements EventBased
         return $this->postId;
     }
 
+    /**
+     * @param string $title
+     * @param string $content
+     */
+    public function update($title, $content)
+    {
+        $this->recordThat($event = new PostWasUpdated($this->getAggregateId(), $title, $content));
+        $this->apply($event);
+    }
+
     private function applyPostWasPublished(PostWasPublished $event)
     {
         $this->setTitle($event->getTitle());
         $this->setContent($event->getContent());
         $this->setPublishingDate($event->getPublishingDate());
+    }
+
+    private function applyPostWasUpdated(PostWasUpdated $event)
+    {
+        $this->setTitle($event->getTitle());
+        $this->setContent($event->getContent());
     }
 
     /**
