@@ -11,7 +11,7 @@ interface EventStorage
 
     /**
      * @param AggregateId $aggregateId
-     * @return AggregateHistory[]
+     * @return DomainEvent[]
      */
     public function find(AggregateId $aggregateId);
 }

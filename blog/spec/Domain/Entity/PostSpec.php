@@ -3,6 +3,7 @@
 namespace spec\Domain\Entity;
 
 use Domain\Entity\Post\PostId;
+use Domain\EventModel\EventBased;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -16,6 +17,11 @@ class PostSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Domain\Entity\Post');
+    }
+
+    function it_is_event_based()
+    {
+        $this->shouldImplement(EventBased::class);
     }
 
     function it_has_title()

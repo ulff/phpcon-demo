@@ -12,15 +12,22 @@ class PostListListener extends AbstractDomainEventListener implements DomainEven
 {
     public function onPostWasPublished(PostWasPublished $event)
     {
-        $templateListProjection = new PostListProjection($event->getAggregateId(), $event->getTitle(), $event->getPublishingDate());
-        $this->projectionStorage->save($templateListProjection);
+        $postListProjection = new PostListProjection(
+            $event->getAggregateId(),
+            $event->getTitle(),
+            $event->getPublishingDate()
+        );
+        $this->projectionStorage->save($postListProjection);
     }
 
     public function onPostWasUpdated(PostWasUpdated $event)
     {
-        $templateListProjection = $this->projectionStorage->findById('post-list', $event->getAggregateId());
-        $templateListProjection->title = $event->getTitle();
-        $templateListProjection->content = $event->getContent();
-        $this->projectionStorage->save($templateListProjection);
+        $postListProjection = $this->projectionStorage->findById(
+            'post-list',
+            $event->getAggregateId()
+        );
+        $postListProjection->title = $event->getTitle();
+        $postListProjection->content = $event->getContent();
+        $this->projectionStorage->save($postListProjection);
     }
 }
