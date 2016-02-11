@@ -2,8 +2,8 @@
 
 namespace Domain\ReadModel\Listener;
 
-use Domain\EventModel\Event\PostWasPublished;
-use Domain\EventModel\Event\PostWasUpdated;
+use Domain\Event\PostWasPublished;
+use Domain\Event\PostWasUpdated;
 use Domain\ReadModel\AbstractDomainEventListener;
 use Domain\ReadModel\DomainEventListener;
 use Domain\ReadModel\Projection\PostListProjection;

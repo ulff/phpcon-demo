@@ -1,16 +1,16 @@
 <?php
 
-namespace Domain\Entity;
+namespace Domain\Aggregate;
 
-use Domain\Entity\Comment\CommentId;
-use Domain\Entity\Post\PostId;
-use Domain\EventModel\AggregateHistory\CommentAggregateHistory;
-use Domain\EventModel\DomainEvent;
-use Domain\EventModel\Event\CommentWasAdded;
-use Domain\EventModel\EventBased;
-use Domain\EventModel\EventSourced;
+use Domain\Aggregate\AggregateId\CommentId;
+use Domain\Aggregate\AggregateId\PostId;
+use Domain\AggregateHistory\CommentAggregateHistory;
+use Domain\EventEngine\DomainEvent;
+use Domain\Event\CommentWasAdded;
+use Domain\EventEngine\Aggregate;
+use Domain\EventEngine\EventSourced;
 
-class Comment implements EventBased
+class Comment implements Aggregate
 {
     use EventSourced;
 

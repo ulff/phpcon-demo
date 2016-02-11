@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\EventModel;
+namespace Domain\EventEngine;
 
 abstract class AggregateHistory
 {

@@ -2,7 +2,7 @@
 
 namespace Infrastructure\InMemory;
 
-use Domain\EventModel\AggregateId;
+use Domain\EventEngine\AggregateId;
 use Domain\ReadModel\Projection;
 use Domain\ReadModel\ProjectionStorage;
 use Everzet\PersistedObjects\AccessorObjectIdentifier;

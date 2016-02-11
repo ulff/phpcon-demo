@@ -2,12 +2,13 @@
 
 namespace Infrastructure\InMemory;
 
-use Domain\EventModel\AggregateId;
-use Domain\EventModel\DomainEvent;
-use Domain\EventModel\EventStorage;
-use Domain\EventModel\EventBased;
+use Domain\EventEngine\AggregateId;
+use Domain\EventEngine\DomainEvent;
+use Domain\EventEngine\EventStorage;
+use Domain\EventEngine\Aggregate;
 use Everzet\PersistedObjects\AccessorObjectIdentifier;
 use Everzet\PersistedObjects\InMemoryRepository;
+use Infrastructure\ODM\Document\StoredEvent;
 
 class InMemoryEventStorage implements EventStorage
 {
@@ -19,11 +20,14 @@ class InMemoryEventStorage implements EventStorage
     }
 
     /**
-     * @param EventBased $eventBased
+     * @param Aggregate $aggregate
      */
-    public function add(EventBased $eventBased)
+    public function add(Aggregate $aggregate)
     {
-        $this->repo->save($eventBased);
+        foreach($aggregate->getEvents() as $event) {
+            $storedEvent = new StoredEvent($aggregate->getAggregateId(), get_class($event), $event);
+            $this->repo->save($storedEvent);
+        }
     }
 
     /**
@@ -33,9 +37,10 @@ class InMemoryEventStorage implements EventStorage
     public function find(AggregateId $aggregateId)
     {
         $events = [];
+        /** @var $storedEvent StoredEvent */
         foreach($this->repo->getAll() as $storedEvent) {
             if($storedEvent->getAggregateId() == $aggregateId) {
-                array_merge($events, $storedEvent->getEvents());
+                $events[] = $storedEvent->getEvent();
             }
         }
 

@@ -8,7 +8,6 @@ interface Responder
 {
     /**
      * @param PostListProjection[] $projections
-     * @return mixed
      */
     public function postsListedSuccessfully(array $projections);
 }

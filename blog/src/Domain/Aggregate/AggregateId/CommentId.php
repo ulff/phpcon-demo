@@ -1,8 +1,8 @@
 <?php
 
-namespace Domain\Entity\Comment;
+namespace Domain\Aggregate\AggregateId;
 
-use Domain\EventModel\AggregateId;
+use Domain\EventEngine\AggregateId;
 
 class CommentId implements AggregateId
 {

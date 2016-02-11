@@ -2,10 +2,10 @@
 
 namespace Domain\UseCase;
 
-use Domain\Entity\Post;
-use Domain\EventModel\AggregateHistory\PostAggregateHistory;
-use Domain\EventModel\EventBus;
-use Domain\EventModel\EventStorage;
+use Domain\Aggregate\Post;
+use Domain\AggregateHistory\PostAggregateHistory;
+use Domain\EventEngine\EventBus;
+use Domain\EventEngine\EventStorage;
 use Domain\UseCase\UpdatePost\Command;
 use Domain\UseCase\UpdatePost\Responder;
 

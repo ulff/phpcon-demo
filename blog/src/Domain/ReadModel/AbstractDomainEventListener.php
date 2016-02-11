@@ -2,8 +2,8 @@
 
 namespace Domain\ReadModel;
 
-use Domain\EventModel\EventBus;
-use Domain\EventModel\DomainEvent;
+use Domain\EventEngine\EventBus;
+use Domain\EventEngine\DomainEvent;
 
 abstract class AbstractDomainEventListener implements DomainEventListener
 {

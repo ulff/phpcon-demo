@@ -1,13 +1,13 @@
 <?php
 
-namespace Domain\EventModel;
+namespace Domain\EventEngine;
 
 interface EventStorage
 {
     /**
-     * @param EventBased $eventBased
+     * @param Aggregate $aggregate
      */
-    public function add(EventBased $eventBased);
+    public function add(Aggregate $aggregate);
 
     /**
      * @param AggregateId $aggregateId

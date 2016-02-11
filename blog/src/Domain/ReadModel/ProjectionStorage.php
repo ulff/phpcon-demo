@@ -2,7 +2,7 @@
 
 namespace Domain\ReadModel;
 
-use Domain\EventModel\AggregateId;
+use Domain\EventEngine\AggregateId;
 
 interface ProjectionStorage
 {

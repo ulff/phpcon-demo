@@ -2,8 +2,8 @@
 
 namespace Domain\UseCase\AddComment;
 
-use Domain\Entity\Comment;
-use Domain\Entity\Post;
+use Domain\Aggregate\Comment;
+use Domain\Aggregate\Post;
 
 interface Responder
 {

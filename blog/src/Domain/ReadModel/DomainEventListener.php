@@ -2,7 +2,7 @@
 
 namespace Domain\ReadModel;
 
-use Domain\EventModel\DomainEvent;
+use Domain\EventEngine\DomainEvent;
 
 interface DomainEventListener
 {

@@ -2,7 +2,7 @@
 
 namespace Domain\UseCase\UpdatePost;
 
-use Domain\Entity\Post;
+use Domain\Aggregate\Post;
 
 interface Responder
 {

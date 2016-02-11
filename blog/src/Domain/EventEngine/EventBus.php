@@ -1,8 +1,7 @@
 <?php
 
-namespace Domain\EventModel;
+namespace Domain\EventEngine;
 
-use Domain\EventModel\DomainEvent;
 use Domain\ReadModel\DomainEventListener;
 
 final class EventBus
@@ -22,7 +21,9 @@ final class EventBus
      */
     public function dispatch($events)
     {
+        /** @var DomainEvent $event */
         foreach ($events as $event) {
+            /** @var DomainEventListener $listener */
             foreach ($this->listeners as $listener) {
                 $listener->when($event);
             }

@@ -2,7 +2,7 @@
 
 namespace Domain\UseCase\UpdatePost;
 
-use Domain\Entity\Post\PostId;
+use Domain\Aggregate\AggregateId\PostId;
 
 class Command
 {

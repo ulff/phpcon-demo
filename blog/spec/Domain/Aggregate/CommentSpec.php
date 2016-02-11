@@ -1,10 +1,10 @@
 <?php
 
-namespace spec\Domain\Entity;
+namespace spec\Domain\Aggregate;
 
-use Domain\Entity\Comment\CommentId;
-use Domain\Entity\Post\PostId;
-use Domain\EventModel\EventBased;
+use Domain\Aggregate\AggregateId\CommentId;
+use Domain\Aggregate\AggregateId\PostId;
+use Domain\EventEngine\Aggregate;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -17,12 +17,12 @@ class CommentSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Domain\Entity\Comment');
+        $this->shouldHaveType('Domain\Aggregate\Comment');
     }
 
-    function it_is_event_based()
+    function it_is_an_aggregate()
     {
-        $this->shouldImplement(EventBased::class);
+        $this->shouldImplement(Aggregate::class);
     }
 
     function it_has_reference_to_post(PostId $postId)

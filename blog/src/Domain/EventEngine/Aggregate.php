@@ -1,8 +1,8 @@
 <?php
 
-namespace Domain\EventModel;
+namespace Domain\EventEngine;
 
-interface EventBased
+interface Aggregate
 {
     /**
      * @return DomainEvent[]

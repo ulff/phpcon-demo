@@ -2,9 +2,9 @@
 
 namespace Domain\UseCase;
 
-use Domain\Entity\Post;
-use Domain\EventModel\EventBus;
-use Domain\EventModel\EventStorage;
+use Domain\Aggregate\Post;
+use Domain\EventEngine\EventBus;
+use Domain\EventEngine\EventStorage;
 use Domain\UseCase\PublishPost\Command;
 use Domain\UseCase\PublishPost\Responder;
 

@@ -1,15 +1,15 @@
 <?php
 
-namespace Domain\Entity;
+namespace Domain\Aggregate;
 
-use Domain\Entity\Post\PostId;
-use Domain\EventModel\AggregateHistory\PostAggregateHistory;
-use Domain\EventModel\Event\PostWasPublished;
-use Domain\EventModel\Event\PostWasUpdated;
-use Domain\EventModel\EventBased;
-use Domain\EventModel\EventSourced;
+use Domain\Aggregate\AggregateId\PostId;
+use Domain\AggregateHistory\PostAggregateHistory;
+use Domain\Event\PostWasPublished;
+use Domain\Event\PostWasUpdated;
+use Domain\EventEngine\Aggregate;
+use Domain\EventEngine\EventSourced;
 
-class Post implements EventBased
+class Post implements Aggregate
 {
     use EventSourced;
 

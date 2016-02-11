@@ -1,10 +1,10 @@
 <?php
 
-namespace Domain\EventModel\Event;
+namespace Domain\Event;
 
-use Domain\Entity\Comment\CommentId;
-use Domain\Entity\Post\PostId;
-use Domain\EventModel\DomainEvent;
+use Domain\Aggregate\AggregateId\CommentId;
+use Domain\Aggregate\AggregateId\PostId;
+use Domain\EventEngine\DomainEvent;
 
 class CommentWasAdded implements DomainEvent
 {

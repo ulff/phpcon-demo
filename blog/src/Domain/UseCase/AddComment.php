@@ -2,9 +2,9 @@
 
 namespace Domain\UseCase;
 
-use Domain\Entity\Comment;
-use Domain\EventModel\EventBus;
-use Domain\EventModel\EventStorage;
+use Domain\Aggregate\Comment;
+use Domain\EventEngine\EventBus;
+use Domain\EventEngine\EventStorage;
 use Domain\UseCase\AddComment\Command;
 use Domain\UseCase\AddComment\Responder;
 

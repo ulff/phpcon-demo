@@ -1,18 +1,30 @@
 <?php
 
-namespace Domain\EventModel\Event;
+namespace Domain\Event;
 
-use Domain\Entity\Post\PostId;
-use Domain\EventModel\DomainEvent;
+use Domain\Aggregate\AggregateId\PostId;
+use Domain\EventEngine\DomainEvent;
 
 class PostWasPublished implements DomainEvent
 {
+    /**
+     * @var PostId
+     */
     private $postId;
 
+    /**
+     * @var string
+     */
     private $title;
 
+    /**
+     * @var string
+     */
     private $content;
 
+    /**
+     * @var \DateTime
+     */
     private $publishingDate;
 
     /**

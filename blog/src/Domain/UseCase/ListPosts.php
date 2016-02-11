@@ -2,8 +2,8 @@
 
 namespace Domain\UseCase;
 
-use Domain\EventModel\EventBus;
-use Domain\EventModel\EventStorage;
+use Domain\EventEngine\EventBus;
+use Domain\EventEngine\EventStorage;
 use Domain\ReadModel\ProjectionStorage;
 use Domain\UseCase\ListPosts\Command;
 use Domain\UseCase\ListPosts\Responder;

@@ -2,20 +2,17 @@
 
 namespace Domain\ReadModel\Projection;
 
-use Domain\EventModel\AggregateId;
+use Domain\Aggregate\AggregateId\PostId;
 use Domain\ReadModel\Projection;
 
 class PostListProjection implements Projection
 {
-    /**
-     * @var string
-     */
-    private $projectionName;
+    const PROJECTION_NAME = 'post-list';
 
     /**
-     * @var AggregateId
+     * @var PostId
      */
-    private $aggregateId;
+    private $postId;
 
     /**
      * @var string
@@ -28,12 +25,11 @@ class PostListProjection implements Projection
     public $publishingDate;
 
     /**
-     * @param AggregateId $aggregateId
+     * @param PostId $postId
      */
-    public function __construct(AggregateId $aggregateId, $title, \DateTime $publishingDate)
+    public function __construct(PostId $postId, $title, \DateTime $publishingDate)
     {
-        $this->projectionName = 'post-list';
-        $this->aggregateId = $aggregateId;
+        $this->postId = $postId;
         $this->title = $title;
         $this->publishingDate = $publishingDate;
     }
@@ -43,14 +39,14 @@ class PostListProjection implements Projection
      */
     public function getProjectionName()
     {
-        return $this->projectionName;
+        return self::PROJECTION_NAME;
     }
 
     /**
-     * @return AggregateId
+     * @return PostId
      */
     public function getAggregateId()
     {
-        return $this->aggregateId;
+        return $this->postId;
     }
 }
