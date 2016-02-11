@@ -1,0 +1,13 @@
+Infrastructure\ODM\Document\StoredEvent:
+  fields:
+    id:
+      id: true
+      strategy: AUTO
+    aggregateId:
+      type: string
+    aggregateClass:
+      type: string
+    event:
+      type: string
+    createdAt:
+      type: date

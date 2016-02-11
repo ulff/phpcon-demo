@@ -26,14 +26,10 @@ class ListPosts
     private $projectionStorage;
 
     /**
-     * @param EventBus $eventBus
-     * @param EventStorage $eventStorage
      * @param ProjectionStorage $projectionStorage
      */
-    public function __construct(EventBus $eventBus, EventStorage $eventStorage, ProjectionStorage $projectionStorage)
+    public function __construct(ProjectionStorage $projectionStorage)
     {
-        $this->eventBus = $eventBus;
-        $this->eventStorage = $eventStorage;
         $this->projectionStorage = $projectionStorage;
     }
 

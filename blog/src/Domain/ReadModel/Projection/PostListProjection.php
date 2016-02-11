@@ -49,4 +49,20 @@ class PostListProjection implements Projection
     {
         return $this->postId;
     }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getPublishingDate()
+    {
+        return $this->publishingDate;
+    }
 }

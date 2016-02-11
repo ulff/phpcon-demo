@@ -1,0 +1,43 @@
+{% extends "AppBundle:Blog:base.html.twig" %}
+
+{% block content %}
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="notice">{{ flashMessage }}</div>
+    {% endfor %}
+
+    <h1>PHPers demo blog</h1>
+
+    {% if posts is not empty %}
+        <table border="1" class="table-templates">
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Publishing date
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+            {% for post in posts  %}
+                <tr>
+                    <td>
+                        <a href="{{ path('post_view', {'id': post.getId}) }}" title="Click to view">{{ post.title }}</a>
+                    </td>
+                    <td>
+                        {{ post.getPublishingDate }}
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        No posts
+    {% endif %}
+
+    <p>
+        <a href="{{ path('post_create') }}">Create new post</a>
+    </p>
+{% endblock %}

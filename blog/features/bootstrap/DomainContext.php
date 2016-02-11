@@ -88,7 +88,7 @@ class DomainContext implements Context, SnippetAcceptingContext, PublishPost\Res
         $this->publishPost = new PublishPost($this->eventBus, $this->eventStorage);
         $this->updatePost = new UpdatePost($this->eventBus, $this->eventStorage);
         $this->addComment = new AddComment($this->eventBus, $this->eventStorage);
-        $this->listPosts = new ListPosts($this->eventBus, $this->eventStorage, $this->projectionStorage);
+        $this->listPosts = new ListPosts($this->projectionStorage);
 
         new PostListListener($this->eventBus, $this->projectionStorage);
     }

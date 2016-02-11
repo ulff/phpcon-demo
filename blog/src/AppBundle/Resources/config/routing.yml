@@ -1,0 +1,20 @@
+post_list:
+  path: /posts
+  defaults:  { _controller: AppBundle:Blog:list }
+
+post_view:
+  path: /posts/{id}
+  defaults:  { _controller: AppBundle:Blog:view }
+  requirements:
+    id: \w+
+
+post_create:
+  path: /posts/create
+  defaults:  { _controller: AppBundle:Blog:create }
+
+root:
+  path: /
+  defaults:
+    _controller: FrameworkBundle:Redirect:redirect
+    route: post_list
+    permanent: true

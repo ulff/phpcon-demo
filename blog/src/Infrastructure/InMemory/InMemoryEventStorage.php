@@ -8,7 +8,7 @@ use Domain\EventEngine\EventStorage;
 use Domain\EventEngine\Aggregate;
 use Everzet\PersistedObjects\AccessorObjectIdentifier;
 use Everzet\PersistedObjects\InMemoryRepository;
-use Infrastructure\ODM\Document\StoredEvent;
+use Infrastructure\InMemory\Document\StoredEvent;
 
 class InMemoryEventStorage implements EventStorage
 {
@@ -42,6 +42,20 @@ class InMemoryEventStorage implements EventStorage
             if($storedEvent->getAggregateId() == $aggregateId) {
                 $events[] = $storedEvent->getEvent();
             }
+        }
+
+        return $events;
+    }
+
+    /**
+     * @return DomainEvent[]
+     */
+    public function getAll()
+    {
+        $events = [];
+        /** @var $storedEvent StoredEvent */
+        foreach($this->repo->getAll() as $storedEvent) {
+            $events[] = $storedEvent->getEvent();
         }
 
         return $events;

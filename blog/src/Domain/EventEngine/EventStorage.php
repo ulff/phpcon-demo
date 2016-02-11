@@ -14,4 +14,9 @@ interface EventStorage
      * @return DomainEvent[]
      */
     public function find(AggregateId $aggregateId);
+
+    /**
+     * @return DomainEvent[]
+     */
+    public function getAll();
 }

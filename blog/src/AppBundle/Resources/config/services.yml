@@ -1,0 +1,21 @@
+services:
+  event_bus:
+    class: Domain\EventEngine\EventBus
+    calls:
+      - [registerListener, ["@listener.post_list"]]
+
+  event_storage:
+    class: Infrastructure\ODM\ODMEventStorage
+    arguments: ['@doctrine.odm.mongodb.document_manager', '@doctrine_mongodb']
+
+  projection_storage:
+    class: Infrastructure\ODM\ODMProjectionStorage
+    arguments: ['@doctrine.odm.mongodb.document_manager', '@doctrine_mongodb']
+
+  bulk_projection_storage:
+    class: Infrastructure\ODM\ODMBulkProjectionStorage
+    arguments: ['@doctrine.odm.mongodb.document_manager', '@doctrine_mongodb']
+
+  listener.post_list:
+    class: Domain\ReadModel\Listener\PostListListener
+    arguments: ['@event_bus', '@projection_storage']

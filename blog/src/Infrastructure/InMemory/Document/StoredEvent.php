@@ -1,6 +1,6 @@
 <?php
 
-namespace Infrastructure\ODM\Document;
+namespace Infrastructure\InMemory\Document;
 
 class StoredEvent
 {

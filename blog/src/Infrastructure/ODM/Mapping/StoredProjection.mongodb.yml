@@ -1,0 +1,15 @@
+Infrastructure\ODM\Document\StoredProjection:
+  changeTrackingPolicy: DEFERRED_EXPLICIT
+  fields:
+    id:
+      id: true
+      type: string
+      strategy: NONE
+    aggregateId:
+      type: string
+    projectionName:
+      type: string
+    projection:
+      type: string
+    updatedAt:
+      type: date
