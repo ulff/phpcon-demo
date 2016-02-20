@@ -11,16 +11,6 @@ use Domain\UseCase\ListPosts\Responder;
 class ListPosts 
 {
     /**
-     * @var EventBus
-     */
-    private $eventBus;
-
-    /**
-     * @var EventStorage
-     */
-    private $eventStorage;
-
-    /**
      * @var ProjectionStorage
      */
     private $projectionStorage;

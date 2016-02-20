@@ -33,7 +33,7 @@ class UpdatePost
 
     public function execute(Command $command, Responder $responder)
     {
-        $postAggregateHistory = new PostAggregateHistory($command->getPostId(), $this->eventStorage->find($command->getPostId()));
+        $postAggregateHistory = new PostAggregateHistory($command->getPostId(), $this->eventStorage);
         $post = Post::reconstituteFrom($postAggregateHistory);
 
         $post->update(

@@ -16,12 +16,12 @@ abstract class AggregateHistory
 
     /**
      * @param AggregateId $aggregateId
-     * @param DomainEvent[] $events
+     * @param EventStorage $eventStorage
      */
-    public function __construct(AggregateId $aggregateId, array $events)
+    public function __construct(AggregateId $aggregateId, EventStorage $eventStorage)
     {
         $this->aggregateId = $aggregateId;
-        $this->events = $events;
+        $this->events = $this->events = $eventStorage->find($aggregateId);
     }
 
     /**
