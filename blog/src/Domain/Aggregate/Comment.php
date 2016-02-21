@@ -152,11 +152,9 @@ class Comment implements Aggregate
      */
     public static function reconstituteFrom(AggregateHistory $commentAggregateHistory)
     {
-        $commentId = $commentAggregateHistory->getAggregateId();
-        $comment = new self($commentId);
-        $events = $commentAggregateHistory->getEvents();
+        $comment = new self($commentAggregateHistory->getAggregateId());
 
-        foreach ($events as $event) {
+        foreach ($commentAggregateHistory->getEvents() as $event) {
             $applyMethod = explode('\\', get_class($event));
             $applyMethod = 'apply' . end($applyMethod);
             $comment->$applyMethod($event);

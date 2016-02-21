@@ -145,11 +145,9 @@ class Post implements Aggregate
      */
     public static function reconstituteFrom(AggregateHistory $postAggregateHistory)
     {
-        $postId = $postAggregateHistory->getAggregateId();
-        $post = new self($postId);
-        $events = $postAggregateHistory->getEvents();
+        $post = new self($postAggregateHistory->getAggregateId());
 
-        foreach ($events as $event) {
+        foreach ($postAggregateHistory->getEvents() as $event) {
             $applyMethod = explode('\\', get_class($event));
             $applyMethod = 'apply' . end($applyMethod);
             $post->$applyMethod($event);
