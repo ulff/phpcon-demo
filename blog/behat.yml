@@ -1,0 +1,20 @@
+default:
+  suites:
+    domain:
+      paths: [ %paths.base%/features ]
+      contexts:
+        - DomainContext
+      filters:
+        tags: @domain
+
+  extensions:
+    Behat\Symfony2Extension:
+      kernel:
+        env: test
+    Behat\MinkExtension:
+      sessions:
+        default:
+          symfony2: ~
+    Codifico\ParameterBagExtension\ServiceContainer\ParameterBagExtension:
+      parameter_bag:
+        class: Codifico\ParameterBagExtension\Bag\InMemoryPlaceholderBag
