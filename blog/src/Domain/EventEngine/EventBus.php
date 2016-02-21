@@ -4,7 +4,7 @@ namespace Domain\EventEngine;
 
 use Domain\ReadModel\DomainEventListener;
 
-final class EventBus
+class EventBus
 {
     /**
      * @var $listeners DomainEventListener[]
@@ -19,7 +19,7 @@ final class EventBus
     /**
      * @param $events DomainEvent[]
      */
-    public function dispatch($events)
+    public function dispatch(array $events)
     {
         /** @var DomainEvent $event */
         foreach ($events as $event) {
@@ -28,7 +28,5 @@ final class EventBus
                 $listener->when($event);
             }
         }
-
-        return $this;
     }
 }
