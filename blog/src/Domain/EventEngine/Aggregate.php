@@ -13,4 +13,9 @@ interface Aggregate
      * @return AggregateId
      */
     public function getAggregateId();
+
+    /**
+     * @return Aggregate
+     */
+    public static function reconstituteFrom(AggregateHistory $aggregateHistory);
 }

@@ -2,8 +2,8 @@
 
 namespace Domain\AggregateHistory;
 
-use Domain\EventEngine\AggregateHistory;
+use Domain\EventEngine\BaseAggregateHistory;
 
-class CommentAggregateHistory extends AggregateHistory
+class CommentAggregateHistory extends BaseAggregateHistory
 {
 }

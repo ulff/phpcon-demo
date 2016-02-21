@@ -2,41 +2,15 @@
 
 namespace Domain\EventEngine;
 
-abstract class AggregateHistory
+interface AggregateHistory
 {
     /**
-     * @var $aggregateId AggregateId
+     * @return DomainEvent[]
      */
-    protected $aggregateId;
-
-    /**
-     * @var $events DomainEvent[]
-     */
-    protected $events;
-
-    /**
-     * @param AggregateId $aggregateId
-     * @param EventStorage $eventStorage
-     */
-    public function __construct(AggregateId $aggregateId, EventStorage $eventStorage)
-    {
-        $this->aggregateId = $aggregateId;
-        $this->events = $this->events = $eventStorage->find($aggregateId);
-    }
+    public function getEvents();
 
     /**
      * @return AggregateId
      */
-    public function getAggregateId()
-    {
-        return $this->aggregateId;
-    }
-
-    /**
-     * @return DomainEvent[]
-     */
-    public function getEvents()
-    {
-        return $this->events;
-    }
+    public function getAggregateId();
 }

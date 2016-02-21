@@ -7,6 +7,7 @@ use Domain\AggregateHistory\PostAggregateHistory;
 use Domain\Event\PostWasPublished;
 use Domain\Event\PostWasUpdated;
 use Domain\EventEngine\Aggregate;
+use Domain\EventEngine\AggregateHistory;
 use Domain\EventEngine\EventSourced;
 
 class Post implements Aggregate
@@ -139,14 +140,14 @@ class Post implements Aggregate
     }
 
     /**
-     * @param PostAggregateHistory $aggregateHistory
+     * @param PostAggregateHistory $postAggregateHistory
      * @return Post
      */
-    public static function reconstituteFrom(PostAggregateHistory $aggregateHistory)
+    public static function reconstituteFrom(AggregateHistory $postAggregateHistory)
     {
-        $postId = $aggregateHistory->getAggregateId();
+        $postId = $postAggregateHistory->getAggregateId();
         $post = new self($postId);
-        $events = $aggregateHistory->getEvents();
+        $events = $postAggregateHistory->getEvents();
 
         foreach ($events as $event) {
             $applyMethod = explode('\\', get_class($event));
