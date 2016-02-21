@@ -71,7 +71,7 @@ class Post implements Aggregate
     /**
      * @param string $title
      */
-    public function setTitle($title)
+    private function setTitle($title)
     {
         $this->title = $title;
     }
@@ -79,7 +79,7 @@ class Post implements Aggregate
     /**
      * @param string $content
      */
-    public function setContent($content)
+    private function setContent($content)
     {
         $this->content = $content;
     }
@@ -87,7 +87,7 @@ class Post implements Aggregate
     /**
      * @param \DateTime $publishingDate
      */
-    public function setPublishingDate($publishingDate)
+    private function setPublishingDate($publishingDate)
     {
         $this->publishingDate = $publishingDate;
     }

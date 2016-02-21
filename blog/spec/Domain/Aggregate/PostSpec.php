@@ -3,15 +3,32 @@
 namespace spec\Domain\Aggregate;
 
 use Domain\Aggregate\AggregateId\PostId;
+use Domain\Aggregate\Post;
 use Domain\EventEngine\Aggregate;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * @mixin Post
+ */
 class PostSpec extends ObjectBehavior
 {
-    function let(PostId $postId)
+    /**
+     * @var string
+     */
+    private $title;
+
+    /**
+     * @var string
+     */
+    private $content;
+
+    function let()
     {
-        $this->beConstructedWith($postId);
+        $this->title = 'Short leading post';
+        $this->content = 'This is first post created on this blog';
+
+        $this->beConstructedThrough('create', [$this->title, $this->content]);
     }
 
     function it_is_initializable()
@@ -26,19 +43,16 @@ class PostSpec extends ObjectBehavior
 
     function it_has_title()
     {
-        $this->setTitle('Short leading post');
-        $this->getTitle()->shouldReturn('Short leading post');
+        $this->getTitle()->shouldReturn($this->title);
     }
 
     function it_has_content()
     {
-        $this->setContent('This is first post created on this blog');
-        $this->getContent()->shouldReturn('This is first post created on this blog');
+        $this->getContent()->shouldReturn($this->content);
     }
 
     function it_has_publishing_date()
     {
-        $this->setPublishingDate($publishingDate = new \DateTime('2015-11-19 23:04:00'));
-        $this->getPublishingDate()->shouldReturn($publishingDate);
+        $this->getPublishingDate()->shouldHaveType('DateTime');
     }
 }

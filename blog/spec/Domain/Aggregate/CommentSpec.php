@@ -4,15 +4,39 @@ namespace spec\Domain\Aggregate;
 
 use Domain\Aggregate\AggregateId\CommentId;
 use Domain\Aggregate\AggregateId\PostId;
+use Domain\Aggregate\Comment;
+use Domain\Event\CommentWasAdded;
 use Domain\EventEngine\Aggregate;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * @mixin Comment
+ */
 class CommentSpec extends ObjectBehavior
 {
-    function let(CommentId $commentId, PostId $postId)
+    /**
+     * @var PostId
+     */
+    private $postId;
+
+    /**
+     * @var string
+     */
+    private $author;
+
+    /**
+     * @var string
+     */
+    private $content;
+
+    function let()
     {
-        $this->beConstructedWith($commentId, $postId);
+        $this->postId = PostId::generate();
+        $this->author = 'Ellis';
+        $this->content = 'Bob has written this';
+
+        $this->beConstructedThrough('create', [$this->postId, $this->author, $this->content]);
     }
 
     function it_is_initializable()
@@ -25,26 +49,23 @@ class CommentSpec extends ObjectBehavior
         $this->shouldImplement(Aggregate::class);
     }
 
-    function it_has_reference_to_post(PostId $postId)
+    function it_has_reference_to_post()
     {
-        $this->getPostId()->shouldReturn($postId);
+        $this->getPostId()->shouldReturn($this->postId);
     }
 
     function it_has_content()
     {
-        $this->setContent('Opinion about the post');
-        $this->getContent()->shouldReturn('Opinion about the post');
+        $this->getContent()->shouldReturn($this->content);
     }
 
     function it_has_author()
     {
-        $this->setAuthor('Ellis');
-        $this->getAuthor()->shouldReturn('Ellis');
+        $this->getAuthor()->shouldReturn($this->author);
     }
 
     function it_has_creating_date()
     {
-        $this->setCreatingDate($creatingDate = new \DateTime('2015-11-20 13:15:00'));
-        $this->getCreatingDate()->shouldReturn($creatingDate);
+        $this->getCreatingDate()->shouldHaveType('DateTime');
     }
 }

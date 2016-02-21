@@ -5,6 +5,7 @@ namespace Domain\Aggregate;
 use Domain\Aggregate\AggregateId\CommentId;
 use Domain\Aggregate\AggregateId\PostId;
 use Domain\AggregateHistory\CommentAggregateHistory;
+use Domain\EventEngine\AggregateHistory;
 use Domain\EventEngine\DomainEvent;
 use Domain\Event\CommentWasAdded;
 use Domain\EventEngine\Aggregate;
@@ -41,12 +42,10 @@ class Comment implements Aggregate
 
     /**
      * @param CommentId $commentId
-     * @param PostId $postId
      */
-    public function __construct(CommentId $commentId, PostId $postId)
+    public function __construct(CommentId $commentId)
     {
         $this->commentId = $commentId;
-        $this->postId = $postId;
     }
 
     /**
@@ -84,7 +83,7 @@ class Comment implements Aggregate
     /**
      * @param string $content
      */
-    public function setContent($content)
+    private function setContent($content)
     {
         $this->content = $content;
     }
@@ -92,7 +91,7 @@ class Comment implements Aggregate
     /**
      * @param string $author
      */
-    public function setAuthor($author)
+    private function setAuthor($author)
     {
         $this->author = $author;
     }
@@ -100,9 +99,17 @@ class Comment implements Aggregate
     /**
      * @param \DateTime $creatingDate
      */
-    public function setCreatingDate($creatingDate)
+    private function setCreatingDate($creatingDate)
     {
         $this->creatingDate = $creatingDate;
+    }
+
+    /**
+     * @param PostId $postId
+     */
+    private function setPostId($postId)
+    {
+        $this->postId = $postId;
     }
 
     /**
@@ -115,6 +122,7 @@ class Comment implements Aggregate
 
     private function applyCommentWasAdded(CommentWasAdded $event)
     {
+        $this->setPostId($event->getPostId());
         $this->setAuthor($event->getAuthor());
         $this->setContent($event->getContent());
         $this->setCreatingDate($event->getCreatingDate());
@@ -128,7 +136,8 @@ class Comment implements Aggregate
      */
     public static function create(PostId $postId, $author, $content)
     {
-        $comment = new self($commentId = CommentId::generate(), $postId);
+        $comment = new self($commentId = CommentId::generate());
+        $comment->setPostId($postId);
         $comment->setAuthor($author);
         $comment->setContent($content);
         $comment->setCreatingDate($creatingDate = new \DateTime());
@@ -138,14 +147,14 @@ class Comment implements Aggregate
     }
 
     /**
-     * @param CommentAggregateHistory $aggregateHistory
+     * @param CommentAggregateHistory $commentAggregateHistory
      * @return Post
      */
-    public static function reconstituteFrom(CommentAggregateHistory $aggregateHistory, PostId $postId)
+    public static function reconstituteFrom(AggregateHistory $commentAggregateHistory)
     {
-        $commentId = $aggregateHistory->getAggregateId();
-        $comment = new self($commentId, $postId);
-        $events = $aggregateHistory->getEvents();
+        $commentId = $commentAggregateHistory->getAggregateId();
+        $comment = new self($commentId);
+        $events = $commentAggregateHistory->getEvents();
 
         foreach ($events as $event) {
             $applyMethod = explode('\\', get_class($event));
