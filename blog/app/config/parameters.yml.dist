@@ -19,4 +19,4 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     mongo_database_server: 'mongodb://db:27017'
-    mongo_database_name: phpersdemo
+    mongo_database_name: phpcondemo

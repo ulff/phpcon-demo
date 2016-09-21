@@ -60,8 +60,8 @@ class PostFixtures extends AbstractFixture implements FixtureInterface, PublishP
     private function loadPost2(ReferenceRepository $referenceRepository)
     {
         $command = new PublishPost\Command(
-            'PHPers demo',
-            'Here is content of PHPers demo blogpost'
+            'PHPcon demo',
+            'Here is content of PHPcon demo blogpost'
         );
 
         $publishPostUseCase = new PublishPost(

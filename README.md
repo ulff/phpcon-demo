@@ -1,4 +1,4 @@
-# phpers-demo
+# phpcon-demo
 
 Application dedicated to be a presentation complement.
 It provides a very simple Blog with just few basic functionalities.
@@ -7,7 +7,7 @@ It was designed to simply present how an event sourced application works.
 
 ## Setting up environment
 
-PHPers Demo environment is based on docker containers,
+PHPcon Demo environment is based on docker containers,
 so make sure your environment supports docker and the docker-machine is up.
 
 Then start the machines with command:
@@ -27,15 +27,15 @@ The output should look similar to that like:
 Status should be "Up ..." on 4 containers:
 
 ```
-phpersdemo_nginx_1
-phpersdemo_php_1
-phpersdemo_db_1
+phpcondemo_nginx_1
+phpcondemo_php_1
+phpcondemo_db_1
 ```
 
 You can log into *php* machine:
 
 ```
-$ docker exec -it phpersdemo_php_1 bash
+$ docker exec -it phpcondemo_php_1 bash
 ```
 
 Go to ```/var/www/blog``` directory and install application with composer:
@@ -76,7 +76,7 @@ $ php app/console ulff:fixtures:load
 
 This command fills event storage and projection storage with some sample data.
 Command looks similar to the one avaiable with *DoctrineFixturesBundle* but operates
-on PHPers Demo use cases.
+on PHPCon Demo use cases.
 
 ### Cleaning projection
 
@@ -103,7 +103,7 @@ recreated from event storage.
 Log into *db* machine:
 
 ```
-$ docker exec -it phpersdemo_db_1 bash
+$ docker exec -it phpcondemo_db_1 bash
 ```
 
 Then run MongoDB:
@@ -112,8 +112,8 @@ Then run MongoDB:
 $ mongo
 ```
 
-And switch to ```phpersdemo``` database:
+And switch to ```phpcondemo``` database:
 
 ```
-> use phpersdemo
+> use phpcondemo
 ```
